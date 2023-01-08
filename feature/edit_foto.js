@@ -21,7 +21,7 @@ const EditPhotoHandler = async (text, msg) => {
             const newPhoto = await EditPhotoRequest(media.data, color)
 
             if (!newPhoto.success) {
-                return msg.reply('Terjadi kesalahan.');
+                return msg.reply(`Terjadi kesalahan 😵\n\n*${error}*\n\ncoba lagi nanti atau gunakan fitur lain *?help*`);
             }
 
             const chat = await msg.getChat();
@@ -67,7 +67,6 @@ const EditPhotoRequest = async (base64, bg_color) => {
             return result;
         });
 }
-
 
 module.exports = {
     EditPhotoHandler
