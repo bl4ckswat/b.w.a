@@ -1,6 +1,7 @@
 const { Configuration, OpenAIApi } = require("openai");
+const { API_KEY_OPEN_AI } = require('../config');
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: API_KEY_OPEN_AI,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -28,7 +29,7 @@ const TrnsAIHandler = async (text, msg, client) => {
         console.log(response.data);
         return client.sendMessage(msg.from,"  ∧,,,∧\n(   ̳• · • ̳) 💬\n/    づ " +response.data.choices[0].text);
     } catch (error) {
-        return msg.reply(`Terjadi kesalahan: ${error}`);
+        return msg.reply(`Terjadi kesalahan 😵\n\n*${error}*\n\ncoba lagi nanti atau gunakan fitur lain *?help*`);
     }
 
 }
