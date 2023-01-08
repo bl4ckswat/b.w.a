@@ -43,17 +43,20 @@ const BmkgHandler = async (text, msg, client) => {
     console.log('Downloading!');
 
     msg.reply('  ∧,,,∧\n(   ̳• · • ̳)\n/    づ menampilkan citra 📡🛰\n\n👨‍💻 mohon tunggu 10 detik');
+    try {
+        setTimeout(() => {
+            const media = MessageMedia.fromFilePath(filePath);
+            const media2 = MessageMedia.fromFilePath(filePath2);
+            const media3 = MessageMedia.fromFilePath(filePath3);
+            chat.sendMessage(media);
+            chat.sendMessage(media2);
+            chat.sendMessage(media3, { caption: 'Jawa Tengah' });
+            console.log(media.filename, media2.filename, media3.filename, 'Success!');
+        }, 10000);
 
-    setTimeout(() => {
-        const media = MessageMedia.fromFilePath(filePath);
-        const media2 = MessageMedia.fromFilePath(filePath2);
-        const media3 = MessageMedia.fromFilePath(filePath3);
-        chat.sendMessage(media);
-        chat.sendMessage(media2);
-        chat.sendMessage(media3, { caption: 'Jawa Tengah' });
-        console.log(media.filename, media2.filename, media3.filename, 'Success!');
-      }, 10000);
-      
+    } catch (error) {
+        return msg.reply(`Terjadi kesalahan 😵\n\n*${error}*\n\ncoba lagi nanti atau gunakan fitur lain *?help*`);
+    }
 };
 
 module.exports = {
