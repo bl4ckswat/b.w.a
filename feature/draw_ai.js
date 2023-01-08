@@ -1,7 +1,8 @@
 const { Configuration, OpenAIApi } = require("openai");
 const { MessageMedia } = require('whatsapp-web.js');
+const { API_KEY_OPEN_AI } = require('../config');
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: API_KEY_OPEN_AI,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -16,19 +17,24 @@ const DrawAIHandler = async (text, msg, client) => {
     msg.reply('. . . . . . .  🤔');
     const question = cmd[1];
 
-    const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: "Translate this into English:" + question,
-        temperature: 0.3,
-        max_tokens: 1000,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-    });
-    console.log(response.data.choices[0].text);
-    const gam = response.data.choices[0].text;
+    try {
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: "Translate this into English:" + question,
+            temperature: 0.3,
+            max_tokens: 1000,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+        });
+        console.log(response.data.choices[0].text);
+
+    } catch (error) {
+        return msg.reply(`Terjadi kesalahan 😵\n\n*${error}*\n\ncoba lagi nanti atau gunakan fitur lain *?help*`);
+    }
 
     try {
+        const gam = response.data.choices[0].text;
         const response = await openai.createImage({
             prompt: gam,
             n: 1,
@@ -38,7 +44,7 @@ const DrawAIHandler = async (text, msg, client) => {
         const media = await MessageMedia.fromUrl(imgUrl);
         return client.sendMessage(msg.from, media, { caption: "Ini dia ^•ﻌ•^ฅ" });
     } catch (error) {
-        return msg.reply(`Terjadi kesalahan: ${error}`);
+        return msg.reply(`Terjadi kesalahan 😵\n\n*${error}*\n\ncoba lagi nanti atau gunakan fitur lain *?help*`);
     }
 }
 
