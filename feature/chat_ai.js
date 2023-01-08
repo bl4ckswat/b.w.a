@@ -15,12 +15,12 @@ const ChatAIHandler = async (text, msg, client) => {
     const response = await ChatGPTRequest(question)
 
     if (!response.success) {
-        return msg.reply('Terjadi kesalahan.');
+        return msg.reply(`Terjadi kesalahan 😵\n\n*${error}*\n\ncoba lagi nanti atau gunakan fitur lain *?help*`);
     }
 
     return client.sendMessage(msg.from,
-        "  ∧,,,∧\n(   ̳• · • ̳) 💬\n/    づ " +response.data
-        );
+        "  ∧,,,∧\n(   ̳• · • ̳) 💬\n/    づ " + response.data
+    );
 }
 
 const ChatGPTRequest = async (text) => {
