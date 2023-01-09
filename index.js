@@ -17,7 +17,7 @@ client.on('qr', qr => {
 });
 
 client.on('ready', () => {
-    console.log('Bot is ready!');
+    console.log('  ∧,,,∧\n(   ̳• · • ̳)\n/    づ Bot is ready!');
 });
 
 client.on('message', async msg => {
